@@ -9,18 +9,18 @@ describe('imageResizeMiddleware', () => {
     const request = httpMocks.createRequest({
       method: 'GET',
       query: {
-        filename: 'example',
+        filename: '',
         width: '200',
-        hight: '200'
-      },
+        height: '200'
+      }
     });
     const response = httpMocks.createResponse();
-    await imageResizeMiddleware(request, response, () => { });
+    await imageResizeMiddleware(request, response, () => {});
     expect(response.statusCode).toBe(400);
   });
 
   it('should process image and save to thumb folder', async () => {
-    spyOn(fs, 'existsSync').and.returnValue(false);
+    spyOn(fs, 'existsSync').and.returnValue(true);
 
     // Giả mạo hàm isSameSize để trả về giá trị false
     spyOn(isSameSizeModule, 'default').and.returnValue(Promise.resolve(false));
@@ -30,12 +30,11 @@ describe('imageResizeMiddleware', () => {
       query: {
         filename: 'fjord',
         width: '200',
-        hight: '200'
-      },
+        height: '200'
+      }
     });
     const response = httpMocks.createResponse();
-    await imageResizeMiddleware(request, response, () => {
-    });
+    await imageResizeMiddleware(request, response, () => {});
     expect(response.statusCode).toBe(200);
   });
 });

@@ -1,23 +1,29 @@
 {
     "root": true,
     "plugins": [
-      "prettier"
+      "prettier",
+      "@typescript-eslint"
     ],
     "extends": [
       "eslint:recommended",
       "prettier"
     ],
+    "parser": "@typescript-eslint/parser",  
     "rules": {
       "prettier/prettier": 2 ,
       "no-use-before-define": ["error", { "functions": true, "classes": true }],
       "no-var": "error",
-      "prefer-const": "error"
+      "prefer-const": "error",
+      "no-undef": "off",
+      "no-unused-vars": "off"
     },
     "parserOptions": {
-      "ecmaVersion": 2017
+      "sourceType": "module",
+      "ecmaVersion": 12
     },
     "env": {
       "node": true,
-      "es6": true
+      "es6": true,
+      "browser": true
     }
 }
