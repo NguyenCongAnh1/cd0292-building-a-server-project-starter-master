@@ -8,7 +8,7 @@ async function imageResizeMiddleware(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-) {
+): Promise<unknown> {
   const filename = req.query.filename as string;
   const imagePath = path.join(__dirname, `../../images/${filename}.jpg`);
 
@@ -31,7 +31,7 @@ async function imageResizeMiddleware(
     (await isSameSize(thumbImagePath, width, height))
   ) {
     // Trả về ảnh đã tồn tại mà không thay đổi kích thước
-    return res.sendFile(imagePath);
+    return res.sendFile(thumbImagePath);
   }
 
   // Sử dụng thư viện Sharp để thay đổi kích thước ảnh
